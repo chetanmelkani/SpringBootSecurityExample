@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.rd22.example.domain.CurrentUser;
 
 @ControllerAdvice
+//@Component
 public class CurrentUserControllerAdvice {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CurrentUserControllerAdvice.class);
 
     @ModelAttribute("currentUser")
     public CurrentUser getCurrentUser(Authentication authentication) {
+    	String s = (authentication == null) ? "" : "" + (CurrentUser) authentication.getPrincipal();
+    	LOGGER.debug(s);
         return (authentication == null) ? null : (CurrentUser) authentication.getPrincipal();
     }
 
